@@ -1,5 +1,8 @@
 package com.Wilson.ListaTarefa.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -25,6 +28,7 @@ public class User {
     @Size (groups = CreateUser.class, min = 2, max = 100)
     private String userName;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "user_password", length = 20, nullable = false)
     @NotNull(groups = {CreateUser.class, UpdateUser.class})
     @NotEmpty(groups = {CreateUser.class, UpdateUser.class})
@@ -38,6 +42,7 @@ public class User {
 
     }
 
+    @JsonIgnore
     public List<Task> getTaskList() {
         return taskList;
     }

@@ -12,8 +12,7 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    @Autowired
-    private TaskRepository taskRepository;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -29,7 +28,6 @@ public class UserService {
     public User adicionarUser(User objeto) {
         objeto.setId(null);
         objeto = this.userRepository.save(objeto);
-        this.taskRepository.saveAll(objeto.getTaskList());
         return objeto;
     }
 
