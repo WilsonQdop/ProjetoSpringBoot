@@ -2,6 +2,7 @@ package com.Wilson.ListaTarefa.controllers;
 
 import com.Wilson.ListaTarefa.models.Task;
 import com.Wilson.ListaTarefa.services.TaskService;
+import com.Wilson.ListaTarefa.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +19,8 @@ import java.util.List;
 public class TaskController {
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Task> buscarPorId(@PathVariable Long id) {
@@ -27,6 +30,7 @@ public class TaskController {
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Task>> buscarAllTaskUserId(@PathVariable Long userId) {
+        userService.buscarPorId(userId);
         List<Task> objectList = this.taskService.buscarAllTaskUserId(userId);
         return ResponseEntity.ok().body(objectList);
     }
